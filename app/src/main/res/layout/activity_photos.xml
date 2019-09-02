@@ -7,19 +7,20 @@
 
         <variable
             name="viewmodel"
-            type="ercanduman.mvvmdemo.ui.home.PhotosViewModel" />
+            type="ercanduman.mvvmdemo.ui.photo.PhotosViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.PhotosActivity">
+        tools:context=".ui.photo.PhotosActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/activity_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -30,9 +31,12 @@
 
             <TextView
                 android:id="@+id/activity_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/activity_input"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:text="Hello World!" />
 
             <ProgressBar

@@ -55,4 +55,5 @@ dependencies {
     //Android Room
     implementation "androidx.room:room-runtime:2.2.0-beta01"
     implementation "androidx.room:room-ktx:2.2.0-beta01"
+    kapt "androidx.room:room-compiler:2.2.0-beta01"
 }
