@@ -16,6 +16,7 @@ import ercanduman.mvvmdemo.databinding.ActivityPhotosBinding
 import ercanduman.mvvmdemo.ui.ProcessListener
 import ercanduman.mvvmdemo.util.hide
 import ercanduman.mvvmdemo.util.show
+import ercanduman.mvvmdemo.util.snackbar
 import ercanduman.mvvmdemo.util.toast
 import kotlinx.android.synthetic.main.activity_photos.*
 
@@ -36,7 +37,7 @@ class PhotosActivity : AppCompatActivity(), ProcessListener {
 
         viewModel.getAllPhotos().observe(this, Observer { photos ->
             if (photos != null && photos.isNotEmpty()) {
-                toast("Data from DB!")
+                activity_parent_layout.snackbar("Data from DB!")
                 photos.forEach {
                     val stringBuilder = StringBuilder()
                     photos.forEach { photo ->
@@ -45,7 +46,7 @@ class PhotosActivity : AppCompatActivity(), ProcessListener {
                     activity_content.text = stringBuilder.toString()
                 }
             } else {
-                toast("No data found in DB!")
+                activity_parent_layout.snackbar("No data found in DB!")
             }
         })
     }
@@ -67,7 +68,7 @@ class PhotosActivity : AppCompatActivity(), ProcessListener {
 
     override fun onFailed(message: String) {
         progress_bar.hide()
-        toast("Process got error: $message")
+        activity_parent_layout.snackbar("Process got error: $message")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
