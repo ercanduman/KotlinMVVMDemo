@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.ui.ProcessListener
+import ercanduman.mvvmdemo.util.ApiException
 import ercanduman.mvvmdemo.util.Coroutines
 
 // TODO: Dependency Injection will be applied here!
@@ -22,16 +23,17 @@ class PhotosViewModel(
         }
 
         Coroutines.main {
-            val response = repository.getPhotos(albumId!!.toInt())
-            if (response.isSuccessful) {
-                processListener?.onSuccess(response.body()!!)
-
-                Coroutines.io() {
+            try {
+                val response = repository.getPhotos(albumId!!.toInt())
+                response.let { photos ->
+                    processListener?.onSuccess(photos)
                     // save to local database
-                    repository.saveToDatabase(response.body()!!)
+                    Coroutines.io() {
+                        repository.saveToDatabase(photos)
+                    }
                 }
-            } else {
-                processListener?.onFailed("Error code: ${response.code()} and Error details: ${response.errorBody()}")
+            } catch (e: ApiException) {
+                processListener?.onFailed(e.message!!)
             }
         }
     }
