@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "ercanduman.notetakingapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -19,6 +19,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -38,7 +42,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha03'
 
     //New Material Design
     implementation 'com.google.android.material:material:1.1.0-alpha09'
