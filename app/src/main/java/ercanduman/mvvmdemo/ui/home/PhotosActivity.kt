@@ -3,10 +3,9 @@ package ercanduman.mvvmdemo.ui.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.R
+import ercanduman.mvvmdemo.data.db.entities.Photo
 import ercanduman.mvvmdemo.databinding.ActivityPhotosBinding
 import ercanduman.mvvmdemo.ui.ProcessListener
 import ercanduman.mvvmdemo.util.hide
@@ -30,12 +29,14 @@ class PhotosActivity : AppCompatActivity(), ProcessListener {
         toast("Process started...")
     }
 
-    override fun onSuccess(response: LiveData<String>) {
-        response.observe(this, Observer {
-            toast("Process finished successfully")
-            progress_bar.hide()
-            activity_content.text = it
-        })
+    override fun onSuccess(photos: List<Photo>) {
+        progress_bar.hide()
+        toast("Process finished successfully")
+        val stringBuilder = StringBuilder()
+        photos.forEach { photo ->
+            stringBuilder.append(photo.toString())
+        }
+        activity_content.text = stringBuilder.toString()
     }
 
     override fun onFailed(message: String) {

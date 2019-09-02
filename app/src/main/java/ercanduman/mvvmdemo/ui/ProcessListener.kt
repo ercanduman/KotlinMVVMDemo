@@ -1,9 +1,9 @@
 package ercanduman.mvvmdemo.ui
 
-import androidx.lifecycle.LiveData
+import ercanduman.mvvmdemo.data.db.entities.Photo
 
 interface ProcessListener {
     fun onStarted()
-    fun onSuccess(response: LiveData<String>)
+    fun onSuccess(photos: List<Photo>)
     fun onFailed(message: String)
 }
