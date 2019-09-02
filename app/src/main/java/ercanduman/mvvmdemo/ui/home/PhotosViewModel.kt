@@ -2,6 +2,7 @@ package ercanduman.mvvmdemo.ui.home
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.ui.ProcessListener
 
 class PhotosViewModel() : ViewModel() {
@@ -15,8 +16,9 @@ class PhotosViewModel() : ViewModel() {
             processListener?.onFailed("AlbumId cannot be null!")
             return
         }
-
-        processListener?.onSuccess()
+        // TODO: Dependency Injection will be applied here!
+        val apiResponse = PhotosRepository().getPhotos(albumId!!.toInt())
+        processListener?.onSuccess(apiResponse)
     }
 
 }

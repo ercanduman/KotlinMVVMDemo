@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Note Taking App (Kotlin )</string>
+    <string name="app_name">Kotlin MVVM Demo</string>
+    <string name="albumid">Please type album id here....</string>
+    <string name="default_albumid">1</string>
 </resources>
