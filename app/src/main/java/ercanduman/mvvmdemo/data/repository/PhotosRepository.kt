@@ -1,7 +1,7 @@
 package ercanduman.mvvmdemo.data.repository
 
 import ercanduman.mvvmdemo.data.db.AppDatabase
-import ercanduman.mvvmdemo.data.db.entities.Photo
+import ercanduman.mvvmdemo.data.db.entities.photo.Photo
 import ercanduman.mvvmdemo.data.network.JsonPlaceHolderApi
 import ercanduman.mvvmdemo.data.network.SafeApiRequest
 
@@ -23,5 +23,4 @@ class PhotosRepository(
     }
 
     fun getAllPhotos() = appDatabase.getPhotoDao().getAllPhotos()
-
 }

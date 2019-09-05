@@ -1,4 +1,4 @@
-package ercanduman.mvvmdemo.data.db.entities
+package ercanduman.mvvmdemo.data.db.entities.photo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
