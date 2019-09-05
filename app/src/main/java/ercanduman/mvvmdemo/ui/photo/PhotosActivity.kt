@@ -8,13 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.R
-import ercanduman.mvvmdemo.data.db.entities.Photo
 import ercanduman.mvvmdemo.databinding.ActivityPhotosBinding
 import ercanduman.mvvmdemo.ui.ProcessListener
-import ercanduman.mvvmdemo.util.hide
-import ercanduman.mvvmdemo.util.show
-import ercanduman.mvvmdemo.util.snackbar
-import ercanduman.mvvmdemo.util.toast
+import ercanduman.mvvmdemo.util.*
 import kotlinx.android.synthetic.main.activity_photos.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -36,13 +32,11 @@ class PhotosActivity : AppCompatActivity(), ProcessListener, KodeinAware {
         viewModel.getAllPhotos().observe(this, Observer { photos ->
             if (photos != null && photos.isNotEmpty()) {
                 activity_parent_layout.snackbar("Data from DB!")
-                photos.forEach {
-                    val stringBuilder = StringBuilder()
-                    photos.forEach { photo ->
-                        stringBuilder.append(photo.toString())
-                    }
-                    activity_content.text = stringBuilder.toString()
+                val stringBuilder = StringBuilder()
+                photos.forEach { photo ->
+                    stringBuilder.append(photo.toString())
                 }
+                activity_content.text = stringBuilder.toString()
             } else {
                 activity_parent_layout.snackbar("No data found in DB!")
             }
@@ -50,21 +44,24 @@ class PhotosActivity : AppCompatActivity(), ProcessListener, KodeinAware {
     }
 
     override fun onStarted() {
+        logd("onStarted: Getting data from api is STARTED...")
         progress_bar.show()
         toast("Process started...")
     }
 
-    override fun onSuccess(photos: List<Photo>) {
+    override fun onSuccess() {
+        logd("onSuccess: getting data from api is FINISHED successfully...")
         progress_bar.hide()
         toast("Process finished successfully")
-        val stringBuilder = StringBuilder()
+/*        val stringBuilder = StringBuilder()
         photos.forEach { photo ->
             stringBuilder.append(photo.toString())
         }
-        activity_content.text = stringBuilder.toString()
+        activity_content.text = stringBuilder.toString()*/
     }
 
     override fun onFailed(message: String) {
+        logd("onSuccess: getting data from api is FAILED...")
         progress_bar.hide()
         activity_parent_layout.snackbar("Process got error: $message")
     }

@@ -5,7 +5,9 @@ import ercanduman.mvvmdemo.data.db.entities.Photo
 import ercanduman.mvvmdemo.data.network.JsonPlaceHolderApi
 import ercanduman.mvvmdemo.data.network.SafeApiRequest
 
-// TODO: Dependency Injection will be applied here!
+/**
+ * Constructor dependency injection applied
+ */
 class PhotosRepository(
     val jsonPlaceHolderApi: JsonPlaceHolderApi,
     val appDatabase: AppDatabase

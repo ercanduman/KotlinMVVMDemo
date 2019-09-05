@@ -5,10 +5,16 @@ package ercanduman.mvvmdemo.util
  */
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import ercanduman.mvvmdemo.BuildConfig
+
+fun Context.logd(debugMessage: String) {
+    if (BuildConfig.DEBUG) Log.d(this::class.java.simpleName, debugMessage)
+}
 
 fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
