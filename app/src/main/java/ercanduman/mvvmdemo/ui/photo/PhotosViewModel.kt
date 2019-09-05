@@ -6,6 +6,7 @@ import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.ui.ProcessListener
 import ercanduman.mvvmdemo.util.ApiException
 import ercanduman.mvvmdemo.util.Coroutines
+import ercanduman.mvvmdemo.util.NoNetworkException
 
 // TODO: Dependency Injection will be applied here!
 class PhotosViewModel(
@@ -27,12 +28,14 @@ class PhotosViewModel(
                 val response = repository.getPhotos(albumId!!.toInt())
                 response.let { photos ->
                     processListener?.onSuccess(photos)
-                    // save to local database
+                    // save to local database in background thread
                     Coroutines.io() {
                         repository.saveToDatabase(photos)
                     }
                 }
             } catch (e: ApiException) {
+                processListener?.onFailed(e.message!!)
+            } catch (e: NoNetworkException) {
                 processListener?.onFailed(e.message!!)
             }
         }

@@ -12,7 +12,7 @@ interface PhotoDao {
      * responsible for update and insert operations.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(photo: Photo)
+    suspend fun upsert(photo: Photo)
 
     @Query("SELECT * FROM photo")
     fun getAllPhotos(): LiveData<List<Photo>>

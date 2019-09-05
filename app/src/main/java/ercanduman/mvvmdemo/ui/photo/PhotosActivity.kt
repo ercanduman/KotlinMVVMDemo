@@ -11,6 +11,7 @@ import ercanduman.mvvmdemo.R
 import ercanduman.mvvmdemo.data.db.AppDatabase
 import ercanduman.mvvmdemo.data.db.entities.Photo
 import ercanduman.mvvmdemo.data.network.JsonPlaceHolderApi
+import ercanduman.mvvmdemo.data.network.NetworkConnectionInterceptor
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.databinding.ActivityPhotosBinding
 import ercanduman.mvvmdemo.ui.ProcessListener
@@ -24,7 +25,8 @@ class PhotosActivity : AppCompatActivity(), ProcessListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val api = JsonPlaceHolderApi()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = JsonPlaceHolderApi(networkConnectionInterceptor)
         val appDatabase = AppDatabase(this)
         val repository = PhotosRepository(api, appDatabase)
         val factory = PhotoViewModelFactory(repository)

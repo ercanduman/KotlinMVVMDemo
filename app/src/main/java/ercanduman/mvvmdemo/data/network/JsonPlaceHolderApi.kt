@@ -1,6 +1,7 @@
 package ercanduman.mvvmdemo.data.network
 
 import ercanduman.mvvmdemo.data.db.entities.Photo
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,7 +12,7 @@ const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
 interface JsonPlaceHolderApi {
     /**
-     * suspend keyword is part of Coroutines library and makes functions  suspending,
+     * "suspend" keyword is part of Coroutines library and makes functions  suspending,
      * suspending functions can run long-running code blocks and retrieve content.
      * getPhotos function is performs network operation which can take long
      */
@@ -19,9 +20,17 @@ interface JsonPlaceHolderApi {
     suspend fun getPhotos(@Query("albumId") albumId: Int): Response<List<Photo>>
 
     companion object {
-        operator fun invoke(): JsonPlaceHolderApi {
+        operator fun invoke(
+            networkConnectionInterceptor: NetworkConnectionInterceptor
+        ): JsonPlaceHolderApi {
+
+            val httpClient = OkHttpClient.Builder()
+                .addInterceptor(networkConnectionInterceptor)
+                .build()
+
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(JsonPlaceHolderApi::class.java)
