@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
 
-class PhotoViewModelFactory(
+class PhotosViewModelFactory(
     val repository: PhotosRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 

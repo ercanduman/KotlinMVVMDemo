@@ -8,11 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.R
-import ercanduman.mvvmdemo.data.db.AppDatabase
 import ercanduman.mvvmdemo.data.db.entities.Photo
-import ercanduman.mvvmdemo.data.network.JsonPlaceHolderApi
-import ercanduman.mvvmdemo.data.network.NetworkConnectionInterceptor
-import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.databinding.ActivityPhotosBinding
 import ercanduman.mvvmdemo.ui.ProcessListener
 import ercanduman.mvvmdemo.util.hide
@@ -20,16 +16,16 @@ import ercanduman.mvvmdemo.util.show
 import ercanduman.mvvmdemo.util.snackbar
 import ercanduman.mvvmdemo.util.toast
 import kotlinx.android.synthetic.main.activity_photos.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class PhotosActivity : AppCompatActivity(), ProcessListener {
+class PhotosActivity : AppCompatActivity(), ProcessListener, KodeinAware {
+    override val kodein by kodein()
+    private val factory: PhotosViewModelFactory by instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val api = JsonPlaceHolderApi(networkConnectionInterceptor)
-        val appDatabase = AppDatabase(this)
-        val repository = PhotosRepository(api, appDatabase)
-        val factory = PhotoViewModelFactory(repository)
 
         val dataBinding: ActivityPhotosBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_photos)
