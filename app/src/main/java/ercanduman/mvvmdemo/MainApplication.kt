@@ -4,7 +4,9 @@ import android.app.Application
 import ercanduman.mvvmdemo.data.db.AppDatabase
 import ercanduman.mvvmdemo.data.network.JsonPlaceHolderApi
 import ercanduman.mvvmdemo.data.network.NetworkConnectionInterceptor
+import ercanduman.mvvmdemo.data.repository.AlbumsRepository
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
+import ercanduman.mvvmdemo.ui.album.AlbumsViewModelFactory
 import ercanduman.mvvmdemo.ui.photo.PhotosViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -26,7 +28,9 @@ class MainApplication : Application(), KodeinAware {
         bind() from singleton { JsonPlaceHolderApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { PhotosRepository(instance(), instance()) }
+        bind() from singleton { AlbumsRepository(instance(), instance()) }
         bind() from provider { PhotosViewModelFactory(instance()) }
+        bind() from provider { AlbumsViewModelFactory(instance()) }
     }
 
 }

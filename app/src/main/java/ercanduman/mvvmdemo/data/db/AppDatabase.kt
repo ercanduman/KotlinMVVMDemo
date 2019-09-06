@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ercanduman.mvvmdemo.data.db.entities.Photo
-import ercanduman.mvvmdemo.data.db.entities.PhotoDao
+import ercanduman.mvvmdemo.data.db.entities.album.Album
+import ercanduman.mvvmdemo.data.db.entities.album.AlbumDao
+import ercanduman.mvvmdemo.data.db.entities.photo.Photo
+import ercanduman.mvvmdemo.data.db.entities.photo.PhotoDao
 
-@Database(entities = arrayOf(Photo::class), version = 1)
+@Database(entities = arrayOf(Photo::class, Album::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getPhotoDao(): PhotoDao
+    abstract fun getAlbumDao(): AlbumDao
 
     companion object {
         /**

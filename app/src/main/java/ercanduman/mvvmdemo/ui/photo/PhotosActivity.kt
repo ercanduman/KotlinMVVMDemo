@@ -53,11 +53,6 @@ class PhotosActivity : AppCompatActivity(), ProcessListener, KodeinAware {
         logd("onSuccess: getting data from api is FINISHED successfully...")
         progress_bar.hide()
         toast("Process finished successfully")
-/*        val stringBuilder = StringBuilder()
-        photos.forEach { photo ->
-            stringBuilder.append(photo.toString())
-        }
-        activity_content.text = stringBuilder.toString()*/
     }
 
     override fun onFailed(message: String) {
@@ -72,8 +67,8 @@ class PhotosActivity : AppCompatActivity(), ProcessListener, KodeinAware {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_get_data) {
-
+        if (item.itemId == R.id.action_settings) {
+            toast("settings clicked.")
             return true
         }
         return super.onOptionsItemSelected(item)

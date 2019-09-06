@@ -1,6 +1,7 @@
 package ercanduman.mvvmdemo.data.network
 
-import ercanduman.mvvmdemo.data.db.entities.Photo
+import ercanduman.mvvmdemo.data.db.entities.album.Album
+import ercanduman.mvvmdemo.data.db.entities.photo.Photo
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -18,6 +19,9 @@ interface JsonPlaceHolderApi {
      */
     @GET("photos")
     suspend fun getPhotos(@Query("albumId") albumId: Int): Response<List<Photo>>
+
+    @GET("albums")
+    suspend fun getAlbums(): Response<List<Album>>
 
     companion object {
         operator fun invoke(
