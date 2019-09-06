@@ -10,5 +10,4 @@ class AlbumsViewModelFactory(val repository: AlbumsRepository) :
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return AlbumsViewModel(repository) as T
     }
-
 }
