@@ -72,4 +72,9 @@ dependencies {
 
     // Preferences
     implementation "androidx.preference:preference-ktx:1.1.0"
+
+    // Groupie
+    implementation "com.xwray:groupie:2.5.1"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.5.1"
+    implementation "com.xwray:groupie-databinding:2.5.1"
 }

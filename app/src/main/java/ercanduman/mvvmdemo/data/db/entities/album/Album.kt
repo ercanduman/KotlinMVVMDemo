@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Album(
     @PrimaryKey(autoGenerate = false)
-    val userId: Int,
     val id: Int,
+    val userId: Int,
     val title: String
 )

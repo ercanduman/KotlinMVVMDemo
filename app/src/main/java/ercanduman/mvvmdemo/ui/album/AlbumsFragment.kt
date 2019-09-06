@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import ercanduman.mvvmdemo.R
+import ercanduman.mvvmdemo.data.db.entities.album.Album
 import ercanduman.mvvmdemo.util.Coroutines
-import ercanduman.mvvmdemo.util.toast
+import ercanduman.mvvmdemo.util.hide
+import ercanduman.mvvmdemo.util.show
 import kotlinx.android.synthetic.main.fragment_album.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -29,19 +33,31 @@ class AlbumsFragment : Fragment(), KodeinAware {
         albumsViewModel = ViewModelProvider(this, factory).get(AlbumsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_album, container, false)
 
-        Coroutines.main {
-            val albumList = albumsViewModel.albums.await()
-            albumList.observe(this, Observer { albums ->
-                context?.toast(albums.size.toString())
-                val stringBuilder = StringBuilder()
-                if (albums != null && albums.isNotEmpty()) {
-                    albums.forEach { album ->
-                        stringBuilder.append(album).append("\n\n")
-                    }
-                }
-                text_album.text = stringBuilder.toString()
-            })
-        }
+        bindUI()
         return root
+    }
+
+    private fun bindUI() = Coroutines.main {
+        progress_bar_albums.show()
+        albumsViewModel.albums.await().observe(this, Observer {
+            initRecyclerView(it.toAlbumItem())
+            progress_bar_albums.hide()
+        })
+    }
+
+    private fun initRecyclerView(albumItems: List<AlbumItem>) {
+        val adapter = GroupAdapter<ViewHolder>().apply {
+            addAll(albumItems)
+        }
+        recycler_view_album.apply {
+            setHasFixedSize(true)
+            this.adapter = adapter
+        }
+    }
+
+    private fun List<Album>.toAlbumItem(): List<AlbumItem> {
+        return this.map {
+            AlbumItem(it)
+        }
     }
 }

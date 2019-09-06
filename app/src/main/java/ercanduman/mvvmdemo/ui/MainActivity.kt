@@ -1,4 +1,4 @@
-package ercanduman.mvvmdemo.ui.main
+package ercanduman.mvvmdemo.ui
 
 import android.os.Bundle
 import android.view.Menu
