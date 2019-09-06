@@ -10,7 +10,7 @@ import androidx.room.Query
 interface AlbumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveAllAlbums(albums: List<Album>)
+    suspend fun saveAllAlbums(albums: List<Album>)
 
     @Query("Select * from album")
     fun getAllAlbums(): LiveData<List<Album>>
