@@ -1,47 +1,12 @@
 package ercanduman.mvvmdemo.ui.photo
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
-import ercanduman.mvvmdemo.ui.ProcessListener
-import ercanduman.mvvmdemo.util.ApiException
-import ercanduman.mvvmdemo.util.Coroutines
-import ercanduman.mvvmdemo.util.NoNetworkException
+import ercanduman.mvvmdemo.util.lazyDeferred
 
-/**
- * Constructor dependency injection applied
- */
-class PhotosViewModel(
-    val repository: PhotosRepository
-) : ViewModel() {
-    var albumId: String? = null
-    var processListener: ProcessListener? = null
-
-    fun getPhotos(view: View) {
-        processListener?.onStarted()
-
-        if (albumId.isNullOrEmpty()) {
-            processListener?.onFailed("AlbumId cannot be null!")
-            return
-        }
-
-        Coroutines.main {
-            try {
-                val response = repository.getPhotos(albumId!!.toInt())
-                response.let { photos ->
-                    processListener?.onSuccess()
-                    // save to local database in background thread
-                    Coroutines.io() {
-                        repository.saveToDatabase(photos)
-                    }
-                }
-            } catch (e: ApiException) {
-                processListener?.onFailed(e.message!!)
-            } catch (e: NoNetworkException) {
-                processListener?.onFailed(e.message!!)
-            }
-        }
+class PhotosViewModel(private val repository: PhotosRepository) : ViewModel() {
+    var albumId: Int? = null
+    val allPhotos by lazyDeferred {
+        repository.getPhotosForAnAlbum(albumId!!)
     }
-
-    fun getAllPhotos() = repository.getAllPhotos()
 }

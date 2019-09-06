@@ -29,10 +29,10 @@ class MainApplication : Application(), KodeinAware {
         bind() from singleton { JsonPlaceHolderApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { PreferenceProvider(instance()) }
-        bind() from singleton { PhotosRepository(instance(), instance()) }
         bind() from singleton { AlbumsRepository(instance(), instance(), instance()) }
-        bind() from provider { PhotosViewModelFactory(instance()) }
+        bind() from singleton { PhotosRepository(instance(), instance(), instance()) }
         bind() from provider { AlbumsViewModelFactory(instance()) }
+        bind() from provider { PhotosViewModelFactory(instance()) }
     }
 
 }

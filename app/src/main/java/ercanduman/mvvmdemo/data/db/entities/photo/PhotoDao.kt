@@ -8,12 +8,10 @@ import androidx.room.Query
 
 @Dao
 interface PhotoDao {
-    /**
-     * responsible for update and insert operations.
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(photo: Photo)
 
-    @Query("SELECT * FROM photo")
-    fun getAllPhotos(): LiveData<List<Photo>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAllPhotos(photos: List<Photo>)
+
+    @Query("SELECT * FROM photo where albumId=:albumId")
+    fun getPhotosForAlbum(albumId: Int): LiveData<List<Photo>>
 }

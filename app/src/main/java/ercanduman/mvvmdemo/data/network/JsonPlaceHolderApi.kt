@@ -15,7 +15,7 @@ interface JsonPlaceHolderApi {
     /**
      * "suspend" keyword is part of Coroutines library and makes functions  suspending,
      * suspending functions can run long-running code blocks and retrieve content.
-     * getPhotos function is performs network operation which can take long
+     * getPhotosFromApi function is performs network operation which can take long
      */
     @GET("photos")
     suspend fun getPhotos(@Query("albumId") albumId: Int): Response<List<Photo>>

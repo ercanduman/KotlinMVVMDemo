@@ -12,5 +12,4 @@ class PhotosViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return PhotosViewModel(repository) as T
     }
-
 }
