@@ -73,6 +73,9 @@ dependencies {
     // Preferences
     implementation "androidx.preference:preference-ktx:1.1.0"
 
+    // social app library
+    implementation 'com.github.ercanduman:sharetosocial:1.07'
+
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'

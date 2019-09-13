@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_albums"
-        android:title="Albums" />
-    <item
-        android:id="@+id/menu_album_photos"
-        android:title="Album Photos" />
-</menu>

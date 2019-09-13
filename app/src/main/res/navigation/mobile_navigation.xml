@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_photo">
         <argument
             android:name="albumId"
-            android:defaultValue="0"
+            android:defaultValue="1"
             app:argType="integer" />
     </fragment>
 </navigation>

@@ -12,10 +12,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import ercanduman.mvvmdemo.R
 import ercanduman.mvvmdemo.util.toast
+import ercanduman.sharetosocial.ShareActions
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,22 +30,24 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            Snackbar.make(view, "Contact App Maker", Snackbar.LENGTH_LONG)
+                .setAction("E-Mail") {
+                    val emailSubject = getString(R.string.app_name) + " contact request."
+                    val recipient = getString(R.string.nav_header_email)
+                    ShareActions.contactViaEmail(this, emailSubject, arrayOf(recipient))
+                }.show()
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_album, R.id.nav_photo, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_album, R.id.nav_gallery, R.id.nav_share
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        nav_view.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
