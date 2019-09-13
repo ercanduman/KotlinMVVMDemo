@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Kotlin MVVM Demo</string>
-    <string name="albumid">Please type album id here....</string>
-    <string name="default_albumid">1</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Ercan Duman</string>
     <string name="nav_header_email">ercanduman30@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
