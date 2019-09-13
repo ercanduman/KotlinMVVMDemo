@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.R
+import ercanduman.mvvmdemo.data.db.entities.photo.Photo
 import ercanduman.mvvmdemo.ui.ProcessListener
 import ercanduman.mvvmdemo.ui.album.BUNDLE_ALBUM_ID
 import ercanduman.mvvmdemo.util.*
@@ -34,16 +35,17 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
         val albumId = arguments?.getInt(BUNDLE_ALBUM_ID)
         context?.logd("Passed albumId: $albumId")
         photosViewModel.albumId = albumId
-        bindUI()
+        bindUI(albumId)
         return root
     }
 
-    private fun bindUI() = Coroutines.main {
+    private fun bindUI(albumId: Int?) = Coroutines.main {
         try {
             processListener.onStarted()
-            photosViewModel.allPhotos.await().observe(this, Observer {
-                text_photo.text = it.size.toString()
-                progress_bar_photos.hide()
+            photosViewModel.allPhotos.await().observe(this, Observer { items ->
+                fragment_photo_text_photo.text = "Item Size: ${items.size} for Album ID: $albumId"
+                initRecyclerView(items)
+                fragment_photo_progress_bar.hide()
                 processListener.onSuccess()
             })
         } catch (e: ApiException) {
@@ -55,19 +57,28 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
         }
     }
 
+    private fun initRecyclerView(items: List<Photo>) {
+        val mAdapter = PhotosAdapter()
+        mAdapter.submitList(items)
+        fragment_photo_recycler_view.apply {
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
+    }
+
     override fun onStarted() {
-        progress_bar_photos.show()
+        fragment_photo_progress_bar.show()
         context?.logd("onStarted: Getting data from api is STARTED...")
     }
 
     override fun onSuccess() {
         context?.logd("onSuccess: getting data from api is FINISHED successfully...")
-        progress_bar_photos.hide()
+        fragment_photo_progress_bar.hide()
     }
 
     override fun onFailed(message: String) {
         context?.logd("onFailed: getting data from api is FAILED...")
-        progress_bar_photos.hide()
+        fragment_photo_progress_bar.hide()
         fragment_photo_parent_layout.snackbar("Process got error: $message")
     }
 }
