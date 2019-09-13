@@ -10,6 +10,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/list_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
@@ -25,7 +26,6 @@
                 android:layout_height="wrap_content"
                 android:text="@{`'`+album.title+`'`}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/colorPrimaryDark"
                 tools:text="Success doesn’t just find you. You have to go out and get it." />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/quote"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:text="@{`Album Id: ` + Integer.toString(album.id)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
@@ -45,20 +45,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/quote"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:text="@{`User Id: ` + Integer.toString(album.userId)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="italic"
                 tools:text="1" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/album_user_id"
-                android:layout_marginTop="7dp"
-                android:background="@color/colorPrimary" />
-
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -49,7 +49,8 @@ class PhotosRepository(
 
     private suspend fun getPhotosForAnAlbumFromApi(albumId: Int) {
         val lastSavedAt = preferences.getLastSavedAtPhotos()
-        if (lastSavedAt == null || fetchNeeded(lastSavedAt)) {
+        val photoCount = appDatabase.getPhotoDao().getPhotoCountForAlbum(albumId)
+        if (photoCount == 0 || lastSavedAt == null || fetchNeeded(lastSavedAt)) {
             val response = apiRequest { jsonPlaceHolderApi.getPhotos(albumId) }
             photos.postValue(response)
         }

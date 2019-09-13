@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ercanduman.mvvmdemo.R
 import ercanduman.mvvmdemo.ui.ProcessListener
+import ercanduman.mvvmdemo.ui.album.BUNDLE_ALBUM_ID
 import ercanduman.mvvmdemo.util.*
 import kotlinx.android.synthetic.main.fragment_photo.*
 import org.kodein.di.KodeinAware
@@ -30,7 +31,9 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
         photosViewModel = ViewModelProvider(this, factory).get(PhotosViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_photo, container, false)
         processListener = this
-        photosViewModel.albumId = 3
+        val albumId = arguments?.getInt(BUNDLE_ALBUM_ID)
+        context?.logd("Passed albumId: $albumId")
+        photosViewModel.albumId = albumId
         bindUI()
         return root
     }

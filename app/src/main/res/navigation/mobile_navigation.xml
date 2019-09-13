@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_album">
+
+    <fragment
+        android:id="@+id/nav_album"
+        android:name="ercanduman.mvvmdemo.ui.album.AlbumsFragment"
+        android:label="@string/menu_albums">
+        <action
+            android:id="@+id/action_nav_album_to_nav_photo"
+            app:destination="@id/nav_photo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_photo"
+        android:name="ercanduman.mvvmdemo.ui.photo.PhotosFragment"
+        android:label="@string/menu_photos"
+        tools:layout="@layout/fragment_photo">
+        <argument
+            android:name="albumId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+</navigation>

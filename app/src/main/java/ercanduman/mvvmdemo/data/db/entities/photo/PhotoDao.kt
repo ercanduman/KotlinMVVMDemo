@@ -14,4 +14,7 @@ interface PhotoDao {
 
     @Query("SELECT * FROM photo where albumId=:albumId")
     fun getPhotosForAlbum(albumId: Int): LiveData<List<Photo>>
+
+    @Query("SELECT count(*) FROM photo where albumId=:albumId")
+    fun getPhotoCountForAlbum(albumId: Int): Int
 }
