@@ -43,7 +43,7 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
         try {
             processListener.onStarted()
             photosViewModel.allPhotos.await().observe(this, Observer { items ->
-                fragment_photo_text_photo.text = "Item Size: ${items.size} for Album ID: $albumId"
+                fragment_photo_text_photo.text = "Album ID: $albumId  -  Item Size: ${items.size} "
                 initRecyclerView(items)
                 fragment_photo_progress_bar.hide()
                 processListener.onSuccess()
