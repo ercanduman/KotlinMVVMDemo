@@ -39,6 +39,10 @@ class PhotosRepository(
         }
     }
 
+    suspend fun getAllPhotos() = withContext(Dispatchers.IO) {
+        appDatabase.getPhotoDao().getAllPhotos()
+    }
+
     private fun saveToDatabase(photos: List<Photo>) {
         //save all photos to db in background thread
         Coroutines.io {

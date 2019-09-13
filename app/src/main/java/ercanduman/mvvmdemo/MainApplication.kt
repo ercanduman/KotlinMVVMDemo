@@ -8,6 +8,7 @@ import ercanduman.mvvmdemo.data.preferences.PreferenceProvider
 import ercanduman.mvvmdemo.data.repository.AlbumsRepository
 import ercanduman.mvvmdemo.data.repository.PhotosRepository
 import ercanduman.mvvmdemo.ui.album.AlbumsViewModelFactory
+import ercanduman.mvvmdemo.ui.gallery.GalleryViewModelFactory
 import ercanduman.mvvmdemo.ui.photo.PhotosViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -33,6 +34,7 @@ class MainApplication : Application(), KodeinAware {
         bind() from singleton { PhotosRepository(instance(), instance(), instance()) }
         bind() from provider { AlbumsViewModelFactory(instance()) }
         bind() from provider { PhotosViewModelFactory(instance()) }
+        bind() from provider { GalleryViewModelFactory(instance()) }
     }
 
 }

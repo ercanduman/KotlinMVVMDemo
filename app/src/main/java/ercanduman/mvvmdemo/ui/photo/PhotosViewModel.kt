@@ -6,7 +6,7 @@ import ercanduman.mvvmdemo.util.lazyDeferred
 
 class PhotosViewModel(private val repository: PhotosRepository) : ViewModel() {
     var albumId: Int? = null
-    val allPhotos by lazyDeferred {
+    val allAlbumPhotos by lazyDeferred {
         repository.getPhotosForAnAlbum(albumId!!)
     }
 }

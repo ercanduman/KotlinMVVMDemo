@@ -42,10 +42,9 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
     private fun bindUI(albumId: Int?) = Coroutines.main {
         try {
             processListener.onStarted()
-            photosViewModel.allPhotos.await().observe(this, Observer { items ->
+            photosViewModel.allAlbumPhotos.await().observe(this, Observer { items ->
                 fragment_photo_text_photo.text = "Album ID: $albumId  -  Item Size: ${items.size} "
                 initRecyclerView(items)
-                fragment_photo_progress_bar.hide()
                 processListener.onSuccess()
             })
         } catch (e: ApiException) {
@@ -58,12 +57,14 @@ class PhotosFragment : Fragment(), KodeinAware, ProcessListener {
     }
 
     private fun initRecyclerView(items: List<Photo>) {
+        context?.logd("PhotosFragment.initRecyclerView.Listed item size: ${items.size}")
         val mAdapter = PhotosAdapter()
         mAdapter.submitList(items)
         fragment_photo_recycler_view.apply {
             setHasFixedSize(true)
             adapter = mAdapter
         }
+        fragment_photo_parent_layout.snackbar("Listed item size: ${items.size}")
     }
 
     override fun onStarted() {

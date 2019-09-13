@@ -21,7 +21,11 @@
         tools:layout="@layout/fragment_photo">
         <argument
             android:name="albumId"
-            android:defaultValue="1"
+            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="ercanduman.mvvmdemo.ui.gallery.GalleryFragment"
+        android:label="GalleryFragment" />
 </navigation>
