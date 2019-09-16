@@ -1,6 +1,5 @@
 package ercanduman.mvvmdemo.ui.album
 
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.xwray.groupie.databinding.BindableItem
 import ercanduman.mvvmdemo.R
@@ -20,8 +19,13 @@ data class AlbumItem(private val album: Album) : BindableItem<ListItemAlbumBindi
     override fun bind(viewBinding: ListItemAlbumBinding, position: Int) {
         viewBinding.album = album
         viewBinding.listItemContent.setOnClickListener {
-            val albumIdBundle = bundleOf(BUNDLE_ALBUM_ID to album.id)
-            it.findNavController().navigate(R.id.action_nav_album_to_nav_photo, albumIdBundle)
+            // 1.way to pass data
+            // val albumIdBundle = bundleOf(BUNDLE_ALBUM_ID to album.id)
+            // it.findNavController().navigate(R.id.action_nav_album_to_nav_photo, albumIdBundle)
+
+            // 2.way to pass data
+            val action = AlbumsFragmentDirections.actionNavAlbumToNavPhoto(album.id)
+            it.findNavController().navigate(action)
         }
     }
 }
